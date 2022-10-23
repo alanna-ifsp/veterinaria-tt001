@@ -1,26 +1,30 @@
 package model;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "buscaTodasEspecies", query = "SELECT * FROM especie", resultClass = Especie.class)
+})
 @Entity
 public class Especie implements Serializable {
-    
-    @Id @GeneratedValue
-   private Integer id; 
-    
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Integer id;
+
     @Column(name = "descricao")
     String descricao;
-    public Especie ()
-    {
-        
+
+    public Especie() {
+
     }
 
     public Especie(Integer id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
-    
-    
+
     public Especie(String descricao) {
         this.descricao = descricao;
     }
@@ -40,9 +44,9 @@ public class Especie implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
-    
-    
-    
-    
+
+    public static Boolean descricaoIsNull(String descricao) {
+        return descricao == null || descricao.isEmpty();
+    }
+
 }

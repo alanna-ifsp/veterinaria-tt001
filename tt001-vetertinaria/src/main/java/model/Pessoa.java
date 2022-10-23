@@ -1,30 +1,39 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-public class Pessoa {
-    
-    @Id
-    private Integer id;
-    
-    @Column(name = "nome")
-    private String nome;
-    @Column(name = "dt_nascimento")
-    private LocalDate dataNascimento;
-    @Column(name = "telefone")
-    private String telefone;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "cpf")
-    private String cpf;
-    
-    private Endereco endereco;
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Pessoa implements Serializable {
 
-    public Pessoa(Integer id, String nome, LocalDate dataNascimento, String telefone, String email, String cpf, Endereco endereco) {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    protected Integer id; 
+    protected String endereco;
+    @Column(name = "dt_nascimento")
+    protected LocalDate dataNascimento;
+    @Column(name = "telefone")
+    protected String telefone;
+    @Column(name = "email")
+    protected String email;
+    @Column(name = "cpf")
+    protected String cpf;
+    @Column(name = "nome")
+    String nome;
+
+    public Pessoa() {
+    }
+        
+     public Pessoa(Integer id, String nome, LocalDate dataNascimento, String telefone, String email, String cpf,String endereco) {
+            
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -34,11 +43,20 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    public Pessoa() {
-    }
-
     public Integer getId() {
         return id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+    
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
     
     public String getNome() {
@@ -72,7 +90,7 @@ public class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public String getCpf() {
         return cpf;
     }
@@ -81,14 +99,11 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    @Override
+    public String toString() {
+        return "Pessoa{" + "id=" + id + ", endereco=" + endereco + ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", email=" + email + ", cpf=" + cpf + ", nome=" + nome + '}';
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-    
     
     
     

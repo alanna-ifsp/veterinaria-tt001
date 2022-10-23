@@ -5,47 +5,43 @@ import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn(name="id_pessoa")
 public class Cliente extends Pessoa implements Serializable {
-    
-    @OneToMany
-    private List<Animal> animais;
+ 
     @Column(name = "ativo")
-    private Boolean ativo;
+    private String ativo;
 
     public Cliente() {
     }
 
-    public Cliente(List<Animal> animais, Boolean ativo, Integer id, String nome, LocalDate dataNascimento, String telefone, String email, String cpf, Endereco endereco) {
-        super(id, nome, dataNascimento, telefone, email, cpf, endereco);
-        this.animais = animais;
+    public Cliente(List<Animal> animais, String ativo, Integer id, String nome, LocalDate dataNascimento, String telefone, String email, String cpf,String endereco) {
+        super(id, nome, dataNascimento, telefone, email, cpf,endereco);
+    
         this.ativo = ativo;
     }
 
-    
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
-    }
-
-    public Boolean getAtivo() {
+    public String getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(Boolean ativo) {
+    public void setAtivo(String ativo) {
         this.ativo = ativo;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "ativo=" + ativo + '}' + "Pessoa: " + "id=" + id + ", endereco=" + endereco + ", dataNascimento=" + dataNascimento + ", telefone=" + telefone + ", email=" + email + ", cpf=" + cpf + ", nome=" + nome;
+    }
+
+
  
     
     
-    
-
+  
    
     
  
